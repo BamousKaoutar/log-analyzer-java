@@ -1,0 +1,34 @@
+name: Java CI
+
+on:
+  push:
+    branches: [ "*" ]
+  pull_request:
+    branches: [ "*" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Cloner le dépôt
+      uses: actions/checkout@v3
+
+    - name: Installer Java
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+
+    - name: Compiler le script Java
+      run: javac src/LogAnalyzer.java
+
+    - name: Créer des fichiers de test
+      run: |
+        mkdir test-folder
+        touch test-folder/fichier1.txt
+        touch test-folder/fichier2.md
+        touch test-folder/fichier3.txt
+
+    - name: Exécuter le programme Java
+      run: java -cp src LogAnalyzer
